@@ -81,8 +81,6 @@ function displayPics() {
   right.title = allProducts[idx[2]].name;
 }
 
-//create event listener for div "image-container"
-// last wed demo: beastsUl.addEventListener('click', handleBeastClick)
 function handleClick(event) {
   if (event.target.id === 'image-container') {
     return alert('Please click directly on an image');
@@ -110,10 +108,19 @@ var prod = {
   datasets: [
     {
       data: votes,
+      backgroundColor: [
+        'green',
+        'blue',
+        'red',
+        'purple',
+        'brown',
+        'yellow'
+        'aqua'
+        'orange'
+      ]
     }
   ]
 };
-
 
 function drawChart() {
   var ctx = document.getElementById("productChart").getContext('2d');
