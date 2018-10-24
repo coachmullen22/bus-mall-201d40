@@ -4,6 +4,11 @@ var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', '
 
 var allProducts = [];
 var totalClicks = [0];
+var productChart;
+//var chartDrawn = false;
+var views = [];
+var votes = [];
+var names = [];
 
 var container = document.getElementById('image-container');
 var left = document.getElementById('left');
@@ -91,14 +96,56 @@ function handleClick(event) {
     }
   }
 
-  if (totalClicks === 25) {
+  if (totalClicks === 10) {
     container.removeEventListener('click', handleClick);
-    showList();
+    // showList();
+    drawChart();
     return;
   }
   displayPics();
 }
 
+var prod = {
+  labels: names,
+  datasets: [
+    {
+      data: votes,
+    }
+  ]
+};
+
+
+function drawChart() {
+  var ctx = document.getElementById("productChart").getContext('2d');
+  for (i = 0; i < allProducts.length; i++) {
+    views.push(allProducts[i].views);
+    votes.push(allProducts[i].votes);
+    names.push(allProducts[i].name);
+  }
+  
+  productChart = new Chart(ctx, {
+    type: 'bar',
+    data: prod,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 500,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+}
+
+/*
 function showList() {
   for (var i = 0; i < allProducts.length; i++) {
     var liEl = document.createElement('li');
@@ -106,6 +153,7 @@ function showList() {
     productList.appendChild(liEl);
   }
 }
-
+*/
 displayPics();
 container.addEventListener('click', handleClick);
+
