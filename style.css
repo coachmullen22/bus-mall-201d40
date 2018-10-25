@@ -1,3 +1,14 @@
+div {
+  margin: 10px;
+  vertical-align: middle;
+  padding: 10px;
+}
+
 img {
+  border: 10px, solid, orangered;
+  border-radius: 20px;
+  padding-bottom: 10px;
+  max-height: 200px;
   width: 30%;
+  vertical-align: middle;
 }

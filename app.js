@@ -9,6 +9,7 @@ var productChart;
 var views = [];
 var votes = [];
 var names = [];
+var prod = {};
 
 var container = document.getElementById('image-container');
 var left = document.getElementById('left');
@@ -25,16 +26,27 @@ function Product(name) {
   allProducts.push(this);
 }
 
-for (var i = 0; i < products.length; i++) {
-  new Product(products[i]); //cycles through constructor function
+window.onload = function(){
+  if(localStorage.getItem('cumulativeTotal')) {
+    var retrieveItems = JSON.parse(localStorage.getItem('cumulativeTotal'));
+    console.log('retrieved', retrieveItems);
+    allProducts = retrieveItems;
+    displayPics();
+    drawChart()
+  } else {
+    products.forEach(function(cumulativeItems) {
+      new Product(cumulativeItems);
+    });
+  }
 }
+
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
 
 function makeThreeUnique() {
-//  console.log(justViewed, 'last viewed, line 37');
+ console.log(justViewed, 'last viewed, line 37');
   var output = [];
   
   var firstNum = makeRandom();
@@ -94,42 +106,56 @@ function handleClick(event) {
     }
   }
 
-  if (totalClicks === 10) {
+  if (totalClicks === 25) {
     container.removeEventListener('click', handleClick);
     // showList();
     drawChart();
+    localStorage.setItem('cumulativeTotal', JSON.stringify(allProducts));
     return;
   }
   displayPics();
 }
 
-var prod = {
-  labels: names,
-  datasets: [
-    {
-      data: votes,
-      backgroundColor: [
-        'green',
-        'blue',
-        'red',
-        'purple',
-        'brown',
-        'yellow'
-        'aqua'
-        'orange'
-      ]
-    }
-  ]
-};
 
 function drawChart() {
   var ctx = document.getElementById("productChart").getContext('2d');
-  for (i = 0; i < allProducts.length; i++) {
+  for (var i = 0; i < allProducts.length; i++) {
     views.push(allProducts[i].views);
     votes.push(allProducts[i].votes);
     names.push(allProducts[i].name);
   }
   
+  prod = {
+   labels: names,
+   datasets: [
+     {
+       label: 'BusMall Survey Stats',
+       data: votes,
+       backgroundColor: [
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange'
+       ]
+     }
+   ]
+  };
   productChart = new Chart(ctx, {
     type: 'bar',
     data: prod,
@@ -142,7 +168,7 @@ function drawChart() {
     },
     scales: {
       yAxes: [{
-        ticks: {
+        ticks: { 
           max: 10,
           min: 0,
           stepSize: 1.0
@@ -161,6 +187,4 @@ function showList() {
   }
 }
 */
-displayPics();
 container.addEventListener('click', handleClick);
-
