@@ -31,12 +31,12 @@ window.onload = function(){
     var retrieveItems = JSON.parse(localStorage.getItem('cumulativeTotal'));
     console.log('retrieved', retrieveItems);
     allProducts = retrieveItems;
+    displayPics();
     drawChart()
   } else {
     products.forEach(function(cumulativeItems) {
       new Product(cumulativeItems);
     });
-    displayPics();
   }
 }
 

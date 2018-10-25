@@ -1,14 +1,14 @@
 div {
-  padding: 10px;
-  border: 25px, solid, orangered;
-  border-radius: 20px;
-  height: 250px;
-  width: 100%;
-  margin: 1.5%;
+  margin: 10px;
   vertical-align: middle;
+  padding: 10px;
 }
 
 img {
-height: 100%;
-width: 200px;
+  border: 10px, solid, orangered;
+  border-radius: 20px;
+  padding-bottom: 10px;
+  max-height: 200px;
+  width: 30%;
+  vertical-align: middle;
 }
