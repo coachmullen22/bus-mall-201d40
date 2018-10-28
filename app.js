@@ -57,7 +57,7 @@ function makeThreeUnique() {
     
   var secondNum = makeRandom();
   while (output[0] === secondNum || justViewed.includes(secondNum)) {
-    console.log('duplicate detected on second');     
+    console.log('duplicate detected on secongit d');     
     secondNum = makeRandom();
   }
   output.push(secondNum);
