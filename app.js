@@ -4,6 +4,12 @@ var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', '
 
 var allProducts = [];
 var totalClicks = [0];
+var productChart;
+//var chartDrawn = false;
+var views = [];
+var votes = [];
+var names = [];
+var prod = {};
 
 var container = document.getElementById('image-container');
 var left = document.getElementById('left');
@@ -20,16 +26,27 @@ function Product(name) {
   allProducts.push(this);
 }
 
-for (var i = 0; i < products.length; i++) {
-  new Product(products[i]); //cycles through constructor function
+window.onload = function(){
+  if(localStorage.getItem('cumulativeTotal')) {
+    var retrieveItems = JSON.parse(localStorage.getItem('cumulativeTotal'));
+    console.log('retrieved', retrieveItems);
+    allProducts = retrieveItems;
+    displayPics();
+    drawChart()
+  } else {
+    products.forEach(function(cumulativeItems) {
+      new Product(cumulativeItems);
+    });
+  }
 }
+
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
 
 function makeThreeUnique() {
-//  console.log(justViewed, 'last viewed, line 37');
+ console.log(justViewed, 'last viewed, line 37');
   var output = [];
   
   var firstNum = makeRandom();
@@ -76,8 +93,6 @@ function displayPics() {
   right.title = allProducts[idx[2]].name;
 }
 
-//create event listener for div "image-container"
-// last wed demo: beastsUl.addEventListener('click', handleBeastClick)
 function handleClick(event) {
   if (event.target.id === 'image-container') {
     return alert('Please click directly on an image');
@@ -93,12 +108,77 @@ function handleClick(event) {
 
   if (totalClicks === 25) {
     container.removeEventListener('click', handleClick);
-    showList();
+    // showList();
+    drawChart();
+    localStorage.setItem('cumulativeTotal', JSON.stringify(allProducts));
     return;
   }
   displayPics();
 }
 
+
+function drawChart() {
+  var ctx = document.getElementById("productChart").getContext('2d');
+  for (var i = 0; i < allProducts.length; i++) {
+    views.push(allProducts[i].views);
+    votes.push(allProducts[i].votes);
+    names.push(allProducts[i].name);
+  }
+  
+  prod = {
+   labels: names,
+   datasets: [
+     {
+       label: 'BusMall Survey Stats',
+       data: votes,
+       backgroundColor: [
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange',
+         'blue',
+         'purple',
+         'brown',
+         'aqua',
+         'orange'
+       ]
+     }
+   ]
+  };
+  productChart = new Chart(ctx, {
+    type: 'bar',
+    data: prod,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 500,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: { 
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+}
+
+/*
 function showList() {
   for (var i = 0; i < allProducts.length; i++) {
     var liEl = document.createElement('li');
@@ -106,6 +186,5 @@ function showList() {
     productList.appendChild(liEl);
   }
 }
-
-displayPics();
+*/
 container.addEventListener('click', handleClick);
