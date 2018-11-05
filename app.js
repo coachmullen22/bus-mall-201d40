@@ -34,7 +34,7 @@ window.onload = function(){
     displayPics();
     drawChart()
   } else {
-    products.forEach(function(cumulativeItems) {
+    allProducts.forEach(function(cumulativeItems) {
       new Product(cumulativeItems);
     });
   }
