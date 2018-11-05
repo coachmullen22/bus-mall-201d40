@@ -1,6 +1,5 @@
 'use strict';
 
-var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 
 var allProducts = [];
 var totalClicks = [0];
@@ -24,9 +23,10 @@ function Product(name) {
   this.views = 0;
   this.votes = 0;
   allProducts.push(this);
+  var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 }
 
-window.onload = function(){
+/*window.onload = function(){
   if(localStorage.getItem('cumulativeTotal')) {
     var retrieveItems = JSON.parse(localStorage.getItem('cumulativeTotal'));
     console.log('retrieved', retrieveItems);
@@ -39,7 +39,7 @@ window.onload = function(){
     });
   }
 }
-
+*/
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
