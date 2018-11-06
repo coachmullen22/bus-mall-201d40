@@ -26,6 +26,7 @@ function Product(name) {
   var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 }
 
+/*
 window.onload = function(){
   if(localStorage.getItem('cumulativeTotal')) {
     var retrieveItems = JSON.parse(localStorage.getItem('cumulativeTotal'));
@@ -39,7 +40,7 @@ window.onload = function(){
     });
   }
 }
-
+*/
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
@@ -57,7 +58,7 @@ function makeThreeUnique() {
     
   var secondNum = makeRandom();
   while (output[0] === secondNum || justViewed.includes(secondNum)) {
-    console.log('duplicate detected on secongit d');     
+    console.log('duplicate detected on second');     
     secondNum = makeRandom();
   }
   output.push(secondNum);
