@@ -1,5 +1,6 @@
 'use strict';
 
+var products = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 
 var allProducts = [];
 var totalClicks = [0];
@@ -19,13 +20,11 @@ var justViewed = [];
 
 function Product(name) {
   this.name = name; //also used as alt title per Sam's example
-  this.filepath = `img/${name}.jpg` //condensed list per Sam's example;
+  this.filepath = `img/${name}.jpg`; //condensed list per Sam's example;
   this.views = 0;
   this.votes = 0;
   allProducts.push(this);
-  var products = ['bag', 'banana', 'boots','breakfast', 'bubblegum', 'bathroom', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 }
-
 
 window.onload = function(){
   if(localStorage.getItem('cumulativeTotal')) {
@@ -33,12 +32,16 @@ window.onload = function(){
     console.log('retrieved', retrieveItems);
     allProducts = retrieveItems;
     displayPics();
-    drawChart()
+    drawChart();
   } else {
     allProducts.forEach(function(cumulativeItems) {
       new Product(cumulativeItems);
     });
   }
+}
+
+for (var i = 0; i < products.length; i++) {
+  new Product(products[i]);
 }
 
 function makeRandom() {
@@ -104,18 +107,18 @@ function handleClick(event) {
     if (event.target.alt === allProducts[i].name) {
       allProducts[i].votes++;
     }
-  }
-
-  if (totalClicks === 25) {
-    container.removeEventListener('click', handleClick);
-    // showList();
-    drawChart();
-    localStorage.setItem('cumulativeTotal', JSON.stringify(allProducts));
-    return;
+    if (totalClicks === 25) {
+      container.removeEventListener('click', handleClick);
+      // showList();
+      // drawChart();
+      localStorage.setItem('cumulativeTotal', JSON.stringify(allProducts));
+      return drawChart();
+    }
   }
   displayPics();
 }
 
+container.addEventListener('click', handleClick);
 
 function drawChart() {
   var ctx = document.getElementById("productChart").getContext('2d');
@@ -187,4 +190,3 @@ function showList() {
   }
 }
 */
-container.addEventListener('click', handleClick);
